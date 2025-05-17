@@ -18,22 +18,23 @@ public class PancakeFlip {
             int maxElementInUnsortedHead = getMaxElement(unsortedHead);
             int indexOfMaxElementInUnsortedHead = indexOfElement(unsortedHead, maxElementInUnsortedHead);
 
-            List<Integer> fromStartToMaxElementOfUnsortedHead = getSubList(unsortedHead, 0, indexOfMaxElementInUnsortedHead + 1);
-            List<Integer> fromMaxToEndOfUnsortedHead = getSubList(unsortedHead, indexOfMaxElementInUnsortedHead + 1, unsortedHead.size());
+            //proceed to the next element if the given maxElementInUnsortedHead is already at the end of unsortedHead
+            if (indexOfMaxElementInUnsortedHead == unsortedHead.size() - 1) {
+                System.out.println("skip full loop");
+            } else {
+                List<Integer> fromStartToMaxElementOfUnsortedHead = getSubList(unsortedHead, 0, indexOfMaxElementInUnsortedHead + 1);
+                List<Integer> fromMaxToEndOfUnsortedHead = getSubList(unsortedHead, indexOfMaxElementInUnsortedHead + 1, unsortedHead.size());
 
-            List<Integer> subListOfHeadWithMaxElementAtStart = reverse(fromStartToMaxElementOfUnsortedHead);
+                List<Integer> subListOfHeadWithMaxElementAtStart = reverse(fromStartToMaxElementOfUnsortedHead);
 
-            List<Integer> wholeHeadWithMaxAtStart = concatLists(subListOfHeadWithMaxElementAtStart, fromMaxToEndOfUnsortedHead);
+                List<Integer> wholeHeadWithMaxAtStart = concatLists(subListOfHeadWithMaxElementAtStart, fromMaxToEndOfUnsortedHead);
 
-            List<Integer> sortedHead = reverse(wholeHeadWithMaxAtStart);
+                List<Integer> sortedHead = reverse(wholeHeadWithMaxAtStart);
 
-            stack = concatLists(sortedHead, sortedTail);
-
-            //increment counter of flips
+                stack = concatLists(sortedHead, sortedTail);
+            }
             flipsCounter++;
-
             System.out.println("stack after " + flipsCounter + " iteration: " + stack);
-
             flipPancakes(stack);
         }
         return indexes;
